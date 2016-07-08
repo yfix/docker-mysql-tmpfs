@@ -1,13 +1,19 @@
 FROM yfix/mysql
 
-# COPY docker /
-# COPY docker/etc/mysql/conf.d/override.cnf /etc/mysql/conf.d/override.cnf
-# COPY docker-entrypoint.sh /usr/local/bin/
+ENV TMPFS_DIR=/opt/tmpfs
+ENV TMPFS_SIZE=300
 
-ADD tmpfs.cnf /etc/mysql/conf.d/tmpfs.cnf
-RUN chmod 664 /etc/mysql/conf.d/tmpfs.cnf
-ADD setup_and_run_tmpfs.sh /usr/local/bin/setup_and_run_tmpfs.sh
-RUN chmod +x /usr/local/bin/setup_and_run_tmpfs.sh
+RUN apt-get update && apt-get -y install --no-install-recommends \
+    psmisc \
+    eatmydata \
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /usr/share/{doc,man}/* \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY ./docker/ /
 
 EXPOSE 3306
-CMD ["/usr/local/bin/setup_and_run_tmpfs.sh"]
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["mysqld"]
