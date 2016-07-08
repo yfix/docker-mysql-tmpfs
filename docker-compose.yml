@@ -3,13 +3,13 @@ services:
   mysql:
     build: .
     ports:
-      - 33062:3306
+      - 20306:3306
     restart: always
     privileged: true
-    environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=yf_for_unit_tests
-      - MYSQL_USER=yf_test
-      - MYSQL_PASSWORD=yf_test
-    volumes:
-      - ./docker/etc/mysql/conf.d/override.cnf:/etc/mysql/conf.d/override.cnf
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=123456
+#      - MYSQL_DATABASE=yf_for_unit_tests
+#      - MYSQL_USER=yf_test
+#      - MYSQL_PASSWORD=yf_test
+#    volumes:
+#      - ./docker/etc/mysql/conf.d/override.cnf:/etc/mysql/conf.d/override.cnf
