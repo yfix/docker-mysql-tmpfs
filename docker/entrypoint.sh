@@ -11,7 +11,6 @@ chown mysql:mysql $TMPFS_DIR
 chmod -R 0700 $TMPFS_DIR
 mount -t tmpfs -o defaults,size="${TMPFS_SIZE}m",relatime,uid=999,gid=1000,mode=0700 tmpfs $TMPFS_DIR
 
-/usr/sbin/mysqld --user=mysql --datadir=$TMPFS_DIR --initialize-insecure
-# --init-file=/etc/mysql/mysql-init.sql
+/usr/sbin/mysqld --user=mysql --datadir=$TMPFS_DIR --initialize --init-file=/etc/mysql/mysql-init.sql
 
 exec "eatmydata" "$@"
