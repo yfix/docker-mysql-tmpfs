@@ -1,7 +1,8 @@
 version: "2"
 services:
   mysql:
-    build: .
+#    build: .
+    image: yfix/mysql-tmpfs
     ports:
       - 20306:3306
     restart: always
